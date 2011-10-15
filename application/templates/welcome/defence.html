@@ -1,0 +1,86 @@
+{% extends "../base.html" %}
+
+{% block content %}
+	<h2>オススメの配分</h2>
+	<p>参考ダメージ: 
+	<br />攻撃(特攻)200
+	<br />不一致威力150(一致威力100) 等倍
+	<br />例: ガブリアスのじしん(性格補正↑ A極振り)
+	</p>
+	<h3>物理特化</h3>
+	<table border="1">
+	<thead>
+		<tr><th> </th><th>HP</th><th>防御</th><th>特防</th></tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>物理特化</th>
+			<td>{{ best_base_pts.b.e_vals.hp }}</td>
+			<td>{{ best_base_pts.b.e_vals.b }}</td>
+			<td>{{ best_base_pts.b.e_vals.d }}</td>
+		</tr>
+	</tbody>
+	</table>
+	<div>HP{{ best_base_pts.b.params.hp }}, 防御{{ best_base_pts.b.params.b }}, 特防{{ best_base_pts.b.params.d }}</div>
+	<form name="form-b" id="form-b" method="get" action="damage_in">
+		<input type="hidden" id="b_hp" name="hp" value="{{ best_base_pts.b.params.hp }}">
+		<input type="hidden" id="b_b" name="b" value="{{ best_base_pts.b.params.b }}">
+		<input type="hidden" id="b_d" name="d" value="{{ best_base_pts.b.params.d }}">
+		<input type="submit" value="ダメージを計算する" />
+	</form>
+	<div>参考ダメージ(物理) ... {{ best_base_pts.b.defences.b }}%</div>
+	<div>参考ダメージ(特殊) ... {{ best_base_pts.b.defences.d }}%</div>
+	<h3>特殊特化</h3>
+	<table border="1">
+	<thead>
+		<tr><th> </th><th>HP</th><th>防御</th><th>特防</th></tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>特殊特化</th>
+			<td>{{ best_base_pts.d.e_vals.hp }}</td>
+			<td>{{ best_base_pts.d.e_vals.b }}</td>
+			<td>{{ best_base_pts.d.e_vals.d }}</td>
+		</tr>
+	</tbody>
+	</table>
+	<div>HP{{ best_base_pts.d.params.hp }}, 防御{{ best_base_pts.d.params.b }}, 特防{{ best_base_pts.d.params.d }}</div>
+	<form name="form-d" id="form-d" method="get" action="damage_in">
+		<input type="hidden" id="d_hp" name="hp" value="{{ best_base_pts.d.params.hp }}">
+		<input type="hidden" id="d_b" name="b" value="{{ best_base_pts.d.params.b }}">
+		<input type="hidden" id="d_d" name="d" value="{{ best_base_pts.d.params.d }}">
+		<input type="submit" value="ダメージを計算する" />
+	</form>
+	<div>参考ダメージ(物理) ... {{ best_base_pts.d.defences.b }}%</div>
+	<div>参考ダメージ(特殊) ... {{ best_base_pts.d.defences.d }}%</div>
+	<h3>両受け型</h3>
+	{% ifequal best_base_pts.both.defences.b 1000.0 %}
+	<p>オススメの配分はありません。</p>
+	{% else %}
+	<table border="1">
+	<thead>
+		<tr><th> </th><th>HP</th><th>防御</th><th>特防</th></tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>両受け型</th>
+			<td>{{ best_base_pts.both.e_vals.hp }}</td>
+			<td>{{ best_base_pts.both.e_vals.b }}</td>
+			<td>{{ best_base_pts.both.e_vals.d }}</td>
+		</tr>
+	</tbody>
+	</table>
+	<div>HP{{ best_base_pts.both.params.hp }}, 防御{{ best_base_pts.both.params.b }}, 特防{{ best_base_pts.both.params.d }}</div>
+	<form name="form-both" id="form-both" method="get" action="damage_in">
+		<input type="hidden" id="both_hp" name="hp" value="{{ best_base_pts.both.params.hp }}">
+		<input type="hidden" id="both_b" name="b" value="{{ best_base_pts.both.params.b }}">
+		<input type="hidden" id="both_d" name="d" value="{{ best_base_pts.both.params.d }}">
+		<input type="submit" value="ダメージを計算する" />
+	</form>
+	<div>参考ダメージ(物理) ... {{ best_base_pts.both.defences.b }}%</div>
+	<div>参考ダメージ(特殊) ... {{ best_base_pts.both.defences.d }}%</div>
+	{% endifequal %}
+	<p><a href="./">戻る</a></p>
+{% endblock %}
+
+<!-- this page is related to controller/welcome.py -->

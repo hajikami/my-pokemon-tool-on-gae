@@ -1,0 +1,27 @@
+{% extends "../base.html" %}
+
+{% block content %}
+	<h2>素早さ抜き調整</h2>
+	<h3>努力値割り振り</h3>
+	{% ifequal best_base_pts -1 %}
+	<p>相手を抜くことはできません。
+	<br/>参考までに、極振りの素早さを表示します。
+	{% else %}
+	<p><strong>{{ best_base_pts }}</strong>を割り振れば、相手を抜くことができます。</p>
+	{% endifequal %}
+
+	<table border="1">
+	<thead>
+		<tr><th>努力値</th><th>自分の素早さ</th><th>相手の素早さ</th></tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>{% ifequal best_base_pts -1 %}(極振り){% else %}{{ best_base_pts }}{% endifequal %}</td>
+			<td>{{ my_speed }}<br />(補正後: {{ my_item_speed }})</td>
+			<td>{{ ur_speed }}<br />(補正後: {{ ur_item_speed }})</td>
+		</tr>
+	</tbody>
+	</table>
+	<p><a href="./">戻る</a></p>
+{% endblock content %}
+<!-- this page is related to controller/welcome.py -->

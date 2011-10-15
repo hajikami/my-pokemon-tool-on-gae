@@ -1,0 +1,90 @@
+{% extends "../base.html" %}
+
+{% block content %}
+	<h2>計算結果</h2>
+	<div>自パラメータ: 
+	<br />HP{{ dfc_params.hp }}, 防御{{ dfc_params.b }}, 特防{{ dfc_params.d }}</div>
+	<div>ダメージ: {{ min_damage }} ～ {{ max_damage }}</div>
+	<div>割合: {{ min_dph }} ～ {{ max_dph }}%</div>
+	<h2>ダメージ計算</h2>
+	<form name="form_damage" id="form_damage" method="post" action="damage">
+	<input type="hidden" id="hp" name="hp" value="{{ dfc_params.hp }}">
+	<input type="hidden" id="b" name="b" value="{{ dfc_params.b }}">
+	<input type="hidden" id="d" name="d" value="{{ dfc_params.d }}">
+	<table>
+	<caption>敵パラメータ</caption>
+	<thead>
+		<tr>
+			<th></th><th>攻撃</th><th>特攻</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>種族値</th>
+			<td><input type="text" istyle="4" mode="numeric" id="s_vals_a" name="s_vals_a" value="{{ s_vals_a }}" size="5" maxlength="3" /></td>
+			<td><input type="text" istyle="4" mode="numeric" id="s_vals_c" name="s_vals_c" value="{{ s_vals_c }}" size="5" maxlength="3" /></td>
+		</tr>
+		<tr>
+			<th>個体値</th>
+			<td><input type="text" istyle="4" mode="numeric" id="p_vals_a" name="p_vals_a" value="{{ p_vals_a }}" size="5" maxlength="2" /></td>
+			<td><input type="text" istyle="4" mode="numeric" id="p_vals_c" name="p_vals_c" value="{{ p_vals_c }}" size="5" maxlength="2" /></td>
+		</tr>
+		<tr>
+			<th>努力値</th>
+			<td><input type="text" istyle="4" mode="numeric" id="e_vals_a" name="e_vals_a" value="{{ e_vals_a }}" size="5" maxlength="3" /></td>
+			<td><input type="text" istyle="4" mode="numeric" id="e_vals_c" name="e_vals_c" value="{{ e_vals_c }}" size="5" maxlength="3" /></td>
+		</tr>
+		<tr>
+			<th>補正</th>
+			<td>
+				<select name="adjustments_a">
+					<option value="1.1"{% ifequal adjustments_a 1.1 %} selected="selected"{% endifequal %}>↑</option>
+					<option value="1.0"{% ifequal adjustments_a 1.0 %} selected="selected"{% endifequal %}> </option>
+					<option value="0.9"{% ifequal adjustments_a 0.9 %} selected="selected"{% endifequal %}>↓</option>
+				</select>
+			</td>
+			<td>
+				<select name="adjustments_c">
+					<option value="1.1"{% ifequal adjustments_c 1.1 %} selected="selected"{% endifequal %}>↑</option>
+					<option value="1.0"{% ifequal adjustments_c 1.0 %} selected="selected"{% endifequal %}> </option>
+					<option value="0.9"{% ifequal adjustments_c 0.9 %} selected="selected"{% endifequal %}>↓</option>
+				</select>
+			</td>
+		</tr>
+	</tbody>
+	</table>
+	<div>
+		<label for="pow">技の威力: </label>
+			<input type="text" istyle="4" mode="numeric" id="pow" name="pow" size="5" maxlength="3" value="{{ pow }}" />
+	</div>
+	<div>
+		<label for="type">タイプ一致: </label>
+			<input type="checkbox" id="type" name="type"{% ifequal type 1.5 %} checked="checked" {% endifequal %} value="1.5" />
+	</div>
+	<div>
+		<label for="atk">技の種類: </label>
+			<select id="atk" name="atk">
+				<option value="a"{% ifequal atk 'a' %} selected="selected"{% endifequal %}>物理</option>
+				<option value="c"{% ifequal atk 'c' %} selected="selected"{% endifequal %}>特殊</option>
+			</select>
+	</div>
+	<div>
+		<label for="chemistry">効果抜群: </label>
+			<select id="chemistry" name="chemistry">
+				<option value="4.0"{% ifequal chemistry 4.0 %} selected="selected"{% endifequal %}>4倍</option>
+				<option value="2.0"{% ifequal chemistry 2.0 %} selected="selected"{% endifequal %}>2倍</option>
+				<option value="1.0"{% ifequal chemistry 1.0 %} selected="selected"{% endifequal %}> </option>
+				<option value="0.5"{% ifequal chemistry 0.5 %} selected="selected"{% endifequal %}>1/2</option>
+				<option value="0.25"{% ifequal chemistry 0.25 %} selected="selected"{% endifequal %}>1/4</option>
+			</select>
+	</div>
+	<div>
+		<label for="hardrock">抜群軽減: </label>
+			<select id="hardrock" name="hardrock">
+				<option value="0.75"{% ifequal hardrock 0.75 %} selected="selected"{% endifequal %}>あり</option>
+				<option value="1.0"{% ifequal hardrock 1.0 %} selected="selected"{% endifequal %}>なし</option>
+			</select>
+	</div>
+	<input type="submit" value="けいさん！" />
+{% endblock content %}
+<!-- this page is related to controller/welcome.py -->

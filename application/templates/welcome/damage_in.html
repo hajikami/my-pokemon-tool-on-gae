@@ -1,0 +1,86 @@
+{% extends "../base.html" %}
+
+{% block content %}
+	<h2>ダメージ計算</h2>
+	<form name="form_damage" id="form_damage" method="post" action="damage">
+	<input type="hidden" id="hp" name="hp" value="{{ hp }}">
+	<input type="hidden" id="b" name="b" value="{{ b }}">
+	<input type="hidden" id="d" name="d" value="{{ d }}">
+	<table>
+	<caption>敵パラメータ</caption>
+	<thead>
+		<tr>
+			<th></th><th>攻撃</th><th>特攻</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>種族値</th>
+			<td><input type="number" min="0" istyle="4" mode="numeric" value="" id="s_vals_a" name="s_vals_a" value="" size="5" maxlength="3" /></td>
+			<td><input type="number" min="0" istyle="4" mode="numeric" value="" id="s_vals_c" name="s_vals_c" value="" size="5" maxlength="3" /></td>
+		</tr>
+		<tr>
+			<th>個体値</th>
+			<td><input type="number" min="0" max="31" istyle="4" value="31" mode="numeric" id="p_vals_a" name="p_vals_a" value="" size="5" maxlength="2" /></td>
+			<td><input type="number" min="0" max="31" istyle="4" value="31" mode="numeric" id="p_vals_c" name="p_vals_c" value="" size="5" maxlength="2" /></td>
+		</tr>
+		<tr>
+			<th>努力値</th>
+			<td><input type="number" min="0" max="255" istyle="4" mode="numeric" value="" id="e_vals_a" name="e_vals_a" value="" size="5" maxlength="3" /></td>
+			<td><input type="number" min="0" max="255" istyle="4" mode="numeric" value="" id="e_vals_c" name="e_vals_c" value="" size="5" maxlength="3" /></td>
+		</tr>
+		<tr>
+			<th>性格補正</th>
+			<td>
+				<select name="adjustments_a">
+					<option value="1.1">↑</option>
+					<option value="1.0" selected="selected"> </option>
+					<option value="0.9">↓</option>
+				</select>
+			</td>
+			<td>
+				<select name="adjustments_c">
+					<option value="1.1">↑</option>
+					<option value="1.0" selected="selected"> </option>
+					<option value="0.9">↓</option>
+				</select>
+			</td>
+		</tr>
+	</tbody>
+	</table>
+	<div>
+		<label for="pow">技の威力: </label>
+			<input type="number" min="0" istyle="4" mode="numeric" id="pow" name="pow" size="5" maxlength="3" value="" required="required" />
+	</div>
+	<div>
+		<label for="type">タイプ一致: </label>
+			<input type="checkbox" id="type" name="type" value="1.5" />
+	</div>
+	<div>
+		<label for="ac">技の種類: </label>
+			<select id="atk" name="atk">
+				<option value="a" selected="selected">物理</option>
+				<option value="c">特殊</option>
+			</select>
+	</div>
+	<div>
+		<label for="chemistry">効果抜群: </label>
+			<select id="chemistry" name="chemistry">
+				<option value="4">4倍</option>
+				<option value="2">2倍</option>
+				<option value="1" selected="selected"> </option>
+				<option value="0.5">1/2</option>
+				<option value="0.25">1/4</option>
+			</select>
+	</div>
+	<div>
+		<label for="hardrock">抜群軽減: </label>
+			<select id="hardrock" name="hardrock">
+				<option value="0.75">あり</option>
+				<option value="1" selected="selected">なし</option>
+			</select>
+	</div>
+	<input type="submit" value="けいさん！" />
+	<p><a href="./">トップに戻る</a></p>
+{% endblock content %}
+<!-- this page is related to controller/welcome.py -->
